@@ -3,6 +3,9 @@ package org.minimymav.entity;
 import com.sun.istack.internal.Nullable;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,6 +37,8 @@ public class Course {
     private int max;
     private int enrolled;
 
+    @OneToMany
+    private Set<Enrollment> enrollment;
 
 
     public Course(){
@@ -129,6 +134,15 @@ public class Course {
         this.enrolled = enrolled;
     }
 
+    public Set<Enrollment> getEnrollment() {
+        return enrollment;
+    }
+
+
+    public void setEnrollment(Set<Enrollment> enrollment) {
+        this.enrollment = enrollment;
+    }
+
     public String getSubject() {
         return subject;
     }
@@ -136,4 +150,5 @@ public class Course {
     public void setSubject(String subject) {
         this.subject = subject;
     }
+
 }

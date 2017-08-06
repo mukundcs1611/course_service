@@ -1,18 +1,24 @@
 package org.minimymav.service;
 
 import org.minimymav.entity.Course;
+import org.minimymav.entity.Enrollment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author mukund,chavali
+ */
 public interface CourseService {
-public List<Course> findAll();
-public Course create(Course course);
+ List<Course> findAll();
+ Course create(Course course);
 //public List<Course> findFiltered(String subject,String courseNum, String coption,String courseLevel );
-public List<Course> findFiltered(Map<String,String> params);
-public Course updateCourse(String id,Course course);
-public Course findOne(String id);
-public void deleteCourse(String id);
+ List<Course> findFiltered(Map<String,String> params);
+ Course updateCourse(String id,Course course);
+ Course findOne(String id);
+ void deleteCourse(String id);
+ Enrollment enroll(String uuid, String useruid);
+ boolean drop(String uuid,String enrollmentId);
 }

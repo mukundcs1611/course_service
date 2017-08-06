@@ -1,6 +1,7 @@
 package org.minimymav.repository;
 
 import org.minimymav.entity.Course;
+import org.minimymav.entity.Enrollment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,4 +14,5 @@ public interface CourseRepository {
      List<Course> findFiltered(String query);
      Course updateCourse(Course course);
      void deleteCourse(String id);
+     Enrollment enroll(Course course);
 }

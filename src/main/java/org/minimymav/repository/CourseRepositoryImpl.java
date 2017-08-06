@@ -1,6 +1,7 @@
 package org.minimymav.repository;
 
 import org.minimymav.entity.Course;
+import org.minimymav.entity.Enrollment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,8 +36,7 @@ public class CourseRepositoryImpl implements CourseRepository{
     @Override
     public List<Course> findFiltered(String query) {
         TypedQuery<Course> q=em.createQuery(query,Course.class);
-        List<Course> result=q.getResultList();
-        return result;
+        return q.getResultList();
     }
 
     @Override
@@ -47,5 +47,11 @@ public class CourseRepositoryImpl implements CourseRepository{
     @Override
     public void deleteCourse(String id) {
 
+    }
+
+    @Override
+    public Enrollment enroll(Course course) {
+
+        return null;
     }
 }

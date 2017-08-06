@@ -1,6 +1,7 @@
 package org.minimymav.controller;
 
 import org.minimymav.entity.Course;
+import org.minimymav.entity.Enrollment;
 import org.minimymav.service.CourseService;
 import org.minimymav.service.CourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+/**
+ * @author chavali mukund
+ */
+
 @RestController
+@CrossOrigin(origins="http://localhost:4200")
 @RequestMapping(value="course")
-
 public class CourseController {
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
 
-    @RequestMapping(method= RequestMethod.GET,value="donotAccess")
-    public List<Course> findAll(){
+    @Autowired
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
+
+    @GetMapping(value="donotAccess")
+    public @ResponseBody List<Course> findAll(){
        Course c1=new Course();
        c1.setCourseNo(1234);
        c1.setEnrolled(12);
@@ -28,21 +37,30 @@ public class CourseController {
         //return "hello";
         return Arrays.asList(c1,c2);
     }
-
-    @RequestMapping(method=RequestMethod.POST,value="view",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @CrossOrigin
+    @PostMapping(value="view",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody List<Course> findFiltered(@RequestBody Map<String,String> params){
         return courseService.findFiltered(params);
     }
 
-    @RequestMapping(method=RequestMethod.PUT,value="{id}")
-    public @ResponseBody Course update(@RequestParam String id,@RequestBody Course course){
+    @PutMapping(value="{id}")
+    public @ResponseBody Course update(@PathVariable String id,@RequestBody Course course){
         return courseService.updateCourse(id,course);
     }
 
-    @RequestMapping(method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                     produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody Course create(@RequestBody Course course){
         return courseService.create(course);
+    }
+
+    @PutMapping()
+    public @ResponseBody Enrollment enroll(@RequestBody String uuid, @RequestBody String user){
+        return courseService.enroll(uuid,user);
+    }
+    @DeleteMapping()
+    public @ResponseBody boolean drop(@RequestBody String uuid,@RequestBody String enrollmentId){
+        return courseService.drop(uuid,enrollmentId);
     }
 }
 
