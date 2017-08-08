@@ -1,4 +1,4 @@
-package org.minimymav.entity;
+package org.studentenroll.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

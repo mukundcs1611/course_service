@@ -1,14 +1,11 @@
-package org.minimymav.entity;
-
-import com.sun.istack.internal.Nullable;
+package org.studentenroll.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@NamedEntityGraph(name = "Courses.noEnrollment")
 public class Course {
     @Id
     @Column(columnDefinition = "varchar(36)")
@@ -35,6 +32,7 @@ public class Course {
     private String end_time;
     @Column(nullable=false)
     private int max;
+
     private int enrolled;
 
     @OneToMany
@@ -152,3 +150,4 @@ public class Course {
     }
 
 }
+

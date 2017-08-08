@@ -1,4 +1,4 @@
-package org.minimymav.Exception;
+package org.studentenroll.Exception;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message){

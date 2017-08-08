@@ -1,4 +1,4 @@
-package org.minimymav;
+package org.studentenroll;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class PersistenceConfig
     public LocalContainerEntityManagerFactoryBean emf(){
         LocalContainerEntityManagerFactoryBean emf=new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource());
-        emf.setPackagesToScan("org.minimymav.entity");
+        emf.setPackagesToScan("org.studentenroll.entity");
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         emf.setJpaProperties(jpaProperties());
         return emf;
@@ -30,9 +30,9 @@ public class PersistenceConfig
     public DataSource dataSource(){
         DriverManagerDataSource ds=new DriverManagerDataSource();
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://dbinstance6331.c9rqzaszzyy5.us-east-1.rds.amazonaws.com:3306/student_enroll_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCOde=false&useSSL=false&serverTimezone=UTC");
+        ds.setUrl("jdbc:mysql://localhost:3306/student_enroll_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCOde=false&useSSL=false&serverTimezone=UTC");
         ds.setUsername("root");
-        ds.setPassword("password");
+        ds.setPassword("system");
         return ds;
     }
     @Bean

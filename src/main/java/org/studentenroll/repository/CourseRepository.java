@@ -1,10 +1,8 @@
-package org.minimymav.repository;
+package org.studentenroll.repository;
 
-import org.minimymav.entity.Course;
-import org.minimymav.entity.Enrollment;
+import org.studentenroll.entity.Course;
+import org.studentenroll.entity.Enrollment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public interface CourseRepository {

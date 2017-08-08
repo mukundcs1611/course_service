@@ -1,10 +1,8 @@
-package org.minimymav.service;
+package org.studentenroll.service;
 
-import org.minimymav.entity.Course;
-import org.minimymav.entity.Enrollment;
+import org.studentenroll.entity.Course;
+import org.studentenroll.entity.Enrollment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

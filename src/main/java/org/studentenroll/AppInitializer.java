@@ -1,8 +1,10 @@
-package org.minimymav;
+package org.studentenroll;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.studentenroll.filters.CorsFilter;
 
-import javax.persistence.PersistenceContext;
+import javax.servlet.Filter;
+
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -19,5 +21,9 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected String[] getServletMappings() {
         return new String[]{"/*"};
 
+    }
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{ new CorsFilter()};
     }
 }

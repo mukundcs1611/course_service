@@ -1,6 +1,7 @@
-package org.minimymav.repository;
+package org.studentenroll.repository;
 
-import org.minimymav.entity.Enrollment;
+import org.springframework.transaction.annotation.Transactional;
+import org.studentenroll.entity.Enrollment;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -17,11 +18,13 @@ public class EnrollmentRepositoryImpl implements EnrollmentRepository {
     }
 
     @Override
+    @Transactional
     public void delete(Enrollment enrollment) {
         em.detach(enrollment);
     }
 
     @Override
+    @Transactional
     public Enrollment create(Enrollment enrollment) {
          em.persist(enrollment);
          return enrollment;

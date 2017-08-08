@@ -1,6 +1,6 @@
-package org.minimymav.repository;
+package org.studentenroll.repository;
 
-import org.minimymav.entity.Enrollment;
+import org.studentenroll.entity.Enrollment;
 
 public interface EnrollmentRepository {
     Enrollment findOne(String enrollmentId);

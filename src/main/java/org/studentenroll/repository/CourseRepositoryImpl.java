@@ -1,16 +1,16 @@
-package org.minimymav.repository;
+package org.studentenroll.repository;
 
-import org.minimymav.entity.Course;
-import org.minimymav.entity.Enrollment;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.studentenroll.entity.Course;
+import org.studentenroll.entity.Enrollment;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CourseRepositoryImpl implements CourseRepository{
@@ -35,7 +35,11 @@ public class CourseRepositoryImpl implements CourseRepository{
 
     @Override
     public List<Course> findFiltered(String query) {
+        EntityGraph graph=em.getEntityGraph("Courses.noEnrollment");
         TypedQuery<Course> q=em.createQuery(query,Course.class);
+        q.setHint("javax.persistance.fetchgraph",graph);
+
+        System.out.println("Are we here");
         return q.getResultList();
     }
 

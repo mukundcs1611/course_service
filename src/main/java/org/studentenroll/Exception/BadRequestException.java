@@ -1,4 +1,4 @@
-package org.minimymav.Exception;
+package org.studentenroll.Exception;
 
 public class BadRequestException extends RuntimeException {
     public BadRequestException(String message){

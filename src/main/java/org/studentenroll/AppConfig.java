@@ -1,4 +1,4 @@
-package org.minimymav;
+package org.studentenroll;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan
 @EnableWebMvc
-public class AppConfig extends WebMvcConfigurerAdapter {
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowCredentials(false).allowedOrigins("http://localhost:4200").maxAge(3600);
-    }
+public class AppConfig  {
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowCredentials(false).allowedOrigins("http://localhost:4200").maxAge(3600);
+//    }
 }

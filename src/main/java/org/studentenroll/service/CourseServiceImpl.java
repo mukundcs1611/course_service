@@ -1,11 +1,11 @@
-package org.minimymav.service;
+package org.studentenroll.service;
 
-import org.minimymav.Exception.BadRequestException;
-import org.minimymav.Exception.NotFoundException;
-import org.minimymav.entity.Course;
-import org.minimymav.entity.Enrollment;
-import org.minimymav.repository.CourseRepository;
-import org.minimymav.repository.EnrollmentRepository;
+import org.studentenroll.Exception.BadRequestException;
+import org.studentenroll.Exception.NotFoundException;
+import org.studentenroll.entity.Course;
+import org.studentenroll.entity.Enrollment;
+import org.studentenroll.repository.CourseRepository;
+import org.studentenroll.repository.EnrollmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,25 +41,30 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Course> findFiltered(Map<String,String> params) {
-
+        //TODO  very big select statement , refactor
         String query="SELECT course FROM Course course WHERE course.subject='"+params.get("subject")+"'";
         if(params.containsKey("courseNum")){
             String option=params.get("coption");
-
-               query+=" AND course.courseNo "+option+" "+params.get("courseNum")+" ";
+            query+=" AND course.courseNo "+option+" "+params.get("courseNum")+" ";
         }
 
+        if(!params.containsKey("courseLevel")){
+            System.out.println(query);
+            return repository.findFiltered(query);
+        }
 
-        if(params.get("courseLevel").toString()=="G"){
+        if(Objects.equals(params.get("courseLevel"), "G")){
             query+=" AND  course.courseNo >= 5000";
         }
+
         else
             query+="AND  course.courseNo <=5000";
-        System.out.println(query);
 
+        System.out.println(query);
        return repository.findFiltered(query);
+
     }
 
     @Override
@@ -78,7 +83,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Enrollment enroll(String uuid,String useruid) {
+    @Transactional
+    public Enrollment enroll(String uuid, String useruid) {
         Course course=findOne(uuid);
         Enrollment enrollClass;
 
@@ -94,6 +100,7 @@ public class CourseServiceImpl implements CourseService {
         return null;
     }
     @Override
+    @Transactional
     public boolean drop(String uuid,String enrollmentId){
         Course course=findOne(uuid);
         Enrollment enrollClass=enrollmentRep.findOne(enrollmentId);

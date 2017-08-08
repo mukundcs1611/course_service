@@ -1,12 +1,10 @@
-package org.minimymav.controller;
+package org.studentenroll.controller;
 
-import org.minimymav.entity.Course;
-import org.minimymav.entity.Enrollment;
-import org.minimymav.service.CourseService;
-import org.minimymav.service.CourseServiceImpl;
+import org.studentenroll.entity.Course;
+import org.studentenroll.entity.Enrollment;
+import org.studentenroll.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -26,6 +24,7 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    @CrossOrigin
     @GetMapping(value="donotAccess")
     public @ResponseBody List<Course> findAll(){
        Course c1=new Course();
@@ -38,7 +37,7 @@ public class CourseController {
         return Arrays.asList(c1,c2);
     }
     @CrossOrigin
-    @PostMapping(value="view",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value="view")
     public @ResponseBody List<Course> findFiltered(@RequestBody Map<String,String> params){
         return courseService.findFiltered(params);
     }
@@ -55,7 +54,8 @@ public class CourseController {
     }
 
     @PutMapping()
-    public @ResponseBody Enrollment enroll(@RequestBody String uuid, @RequestBody String user){
+    public @ResponseBody
+    Enrollment enroll(@RequestBody String uuid, @RequestBody String user){
         return courseService.enroll(uuid,user);
     }
     @DeleteMapping()
