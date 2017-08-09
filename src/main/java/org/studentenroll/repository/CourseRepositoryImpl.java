@@ -36,10 +36,13 @@ public class CourseRepositoryImpl implements CourseRepository{
     @Override
     public List<Course> findFiltered(String query) {
         EntityGraph graph=em.getEntityGraph("Courses.noEnrollment");
+
         TypedQuery<Course> q=em.createQuery(query,Course.class);
         q.setHint("javax.persistance.fetchgraph",graph);
 
         System.out.println("Are we here");
+        List<Course> results=q.getResultList();
+
         return q.getResultList();
     }
 

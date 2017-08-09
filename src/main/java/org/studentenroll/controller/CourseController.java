@@ -1,5 +1,6 @@
 package org.studentenroll.controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.studentenroll.entity.Course;
 import org.studentenroll.entity.Enrollment;
 import org.studentenroll.service.CourseService;
@@ -36,6 +37,7 @@ public class CourseController {
         //return "hello";
         return Arrays.asList(c1,c2);
     }
+
     @CrossOrigin
     @PostMapping(value="view")
     public @ResponseBody List<Course> findFiltered(@RequestBody Map<String,String> params){
@@ -55,9 +57,10 @@ public class CourseController {
 
     @PutMapping()
     public @ResponseBody
-    Enrollment enroll(@RequestBody String uuid, @RequestBody String user){
-        return courseService.enroll(uuid,user);
+    Enrollment enroll(@RequestBody Map<String,String> params){
+        return courseService.enroll(params.get("cid"),params.get("uid"));
     }
+
     @DeleteMapping()
     public @ResponseBody boolean drop(@RequestBody String uuid,@RequestBody String enrollmentId){
         return courseService.drop(uuid,enrollmentId);

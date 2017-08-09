@@ -44,26 +44,45 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public List<Course> findFiltered(Map<String,String> params) {
         //TODO  very big select statement , refactor
+
         String query="SELECT course FROM Course course WHERE course.subject='"+params.get("subject")+"'";
         if(params.containsKey("courseNum")){
             String option=params.get("coption");
             query+=" AND course.courseNo "+option+" "+params.get("courseNum")+" ";
         }
 
-        if(!params.containsKey("courseLevel")){
-            System.out.println(query);
-            return repository.findFiltered(query);
+        if(params.get("courseLevel")==null){
+
+            if(Objects.equals(params.get("courseLevel"), "G")){
+                query+=" AND  course.courseNo >= 5000";
+            }
+
+            else if(params.get("courseLevel")!=null)
+                query+="AND  course.courseNo <=5000";
+
         }
 
-        if(Objects.equals(params.get("courseLevel"), "G")){
-            query+=" AND  course.courseNo >= 5000";
+
+
+        List<Course> courses=new ArrayList<Course>();
+        for(Course c:repository.findFiltered(query)){
+            Course c2=new Course();
+            c2.setCourseNo(c.getCourseNo());
+            c2.setEnrollment(null);
+            c2.setEnrolled(c.getEnrolled());
+            c2.setCourse_title(c.getCourse_title());
+            c2.setDays(c.getDays());
+            c2.setEnd_time(c.getEnd_time());
+            c2.setStart_time(c.getEnd_time());
+            c2.setId(c.getId());
+            c2.setInstructor(c.getInstructor());
+            c2.setSection(c.getSection());
+            c2.setMax(c.getMax());
+            c2.setSubject(c.getSubject());
+            c2.setSemesterId(c.getSemesterId());
+            courses.add(c2);
         }
-
-        else
-            query+="AND  course.courseNo <=5000";
-
-        System.out.println(query);
-       return repository.findFiltered(query);
+       return courses;
 
     }
 
